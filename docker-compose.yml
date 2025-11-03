@@ -1,0 +1,47 @@
+services:
+  redis:
+    image: redis/redis-stack-server:7.2.0-v18
+    container_name: redis_db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - redis_stack_data:/data
+    networks:
+      - app_network
+
+  bot-service:
+    build:
+      context: ./bot-service
+      dockerfile: Dockerfile
+    container_name: bot_service
+    restart: always
+    ports:
+      - "8002:8002"
+    env_file:
+      - .env
+    networks:
+      - app_network
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - app_network
+
+volumes:
+  redis_stack_data:
+  portainer_data:
+
+networks:
+  app_network:
+    driver: bridge
