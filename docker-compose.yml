@@ -6,8 +6,8 @@ services:
     env_file:
       - .env
     ports:
-      - "6379:6379"
-      - "8001:8001"
+      - "6378:6378"
+      - "8211:8211"
     volumes:
       - redis_stack_data:/data
     networks:
@@ -20,7 +20,7 @@ services:
     container_name: tg_service
     restart: always
     ports:
-      - "8002:8002"
+      - "8019:8019"
     env_file:
       - .env
     networks:
