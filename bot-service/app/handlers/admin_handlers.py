@@ -21,7 +21,7 @@ async def start_for_admin(message: Message):
 async def send_car_number(message: Message, command: CommandObject, bot: Bot):
     text = command.args  # вот тут получаем аргумент команды
     if not text:
-        await message.answer("⚠️ Нужно указать номер машины, например /car уф256х")
+        await message.answer("⚠️ Нужно указать номер машины, например /car уф256х", parse_mode='HTML')
         return
     for user_id in ids:
         await bot.send_message(chat_id=user_id, text=f'🚖 Такси едет:\n<b>{text}</b>')
@@ -31,4 +31,4 @@ async def send_car_number(message: Message, command: CommandObject, bot: Bot):
 @router.message(IsAdmin(), Command(commands=["ready"]))
 async def ask_if_ready(message: Message, bot: Bot):
     for user_id in ids:
-        await bot.send_message(chat_id=user_id, text=f'Ты уже готова?\nЕсли нет - выбери, сколько минут тебе нужно', reply_markup=are_u_ready_kb())
+        await bot.send_message(chat_id=user_id, text=f'Ты уже готова?\nЕсли нет - выбери, сколько минут тебе нужно', reply_markup=are_u_ready_kb(), parse_mode='HTML')
