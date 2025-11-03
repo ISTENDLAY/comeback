@@ -17,7 +17,7 @@ services:
     build:
       context: ./bot-service
       dockerfile: Dockerfile
-    container_name: bot_service
+    container_name: tg_service
     restart: always
     ports:
       - "8002:8002"
